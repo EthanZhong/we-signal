@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "allowJs": false,
+    "sourceMap": true,
+    "removeComments": false,
+    "strict": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "strictNullChecks": true,
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+    "declaration": true,
+    "declarationDir": "types",
+    "emitDeclarationOnly": true
+  },
+  "include": ["lib"]
+}

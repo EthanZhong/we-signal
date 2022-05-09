@@ -1,0 +1,39 @@
+{
+  "name": "we-signal",
+  "version": "0.0.1",
+  "description": "Event signal transmitter",
+  "main": "./dist/we-signal.min.js",
+  "module": "./dist/we-signal.esm.js",
+  "repository": "https://github.com/EthanZhong/we-signal.git",
+  "author": "ethan.zhong <zhongdings@163.com>",
+  "license": "MIT",
+  "types": "./types/index.d.ts",
+  "files": [
+    "dist",
+    "types"
+  ],
+  "scripts": {
+    "tsc": "tsc",
+    "lint": "eslint . --ext .js,.ts",
+    "lint:fix": "eslint . --ext .js,.ts --fix",
+    "clean:types": "rimraf types",
+    "clean:dist": "rimraf dist",
+    "types": "npm run clean:types && tsc",
+    "build": "npm run clean:dist && rollup -c",
+    "build:prod": "npm run types && cross-env NODE_ENV=production npm run build"
+  },
+  "devDependencies": {
+    "@rollup/plugin-eslint": "^8.0.2",
+    "@rollup/plugin-typescript": "^8.3.2",
+    "@typescript-eslint/eslint-plugin": "^5.20.0",
+    "@typescript-eslint/parser": "^5.20.0",
+    "camelcase": "^6.3.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.14.0",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.70.2",
+    "rollup-plugin-terser": "^7.0.2",
+    "tslib": "^2.4.0",
+    "typescript": "^4.6.3"
+  }
+}
