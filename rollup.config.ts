@@ -1,12 +1,14 @@
 import typescript from '@rollup/plugin-typescript';
-// import eslint from '@rollup/plugin-eslint';
 import { terser } from 'rollup-plugin-terser';
+import { readFileSync } from 'jsonfile';
 import camelCase from 'camelcase';
-const pkg = require('./package.json');
+
+const pkg = readFileSync('./package.json');
 const name = camelCase(pkg.name, {
   pascalCase: true,
 });
-const input = './lib/index.ts';
+const input = './src/index.ts';
+
 export default {
   input,
   output: [

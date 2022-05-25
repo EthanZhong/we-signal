@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ES5",
+    "lib": ["ESNext"],
+    "module": "ES2015",
     "allowJs": false,
     "sourceMap": true,
     "removeComments": false,
@@ -16,5 +18,5 @@
     "declarationDir": "types",
     "emitDeclarationOnly": true
   },
-  "include": ["lib"]
+  "include": ["src/**/*.ts"]
 }

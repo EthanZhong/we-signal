@@ -4,6 +4,7 @@ module.exports = {
     browser: true,
     es2021: true,
     node: true,
+    jest: true,
   },
   parserOptions: {
     ecmaVersion: 'latest',
@@ -13,12 +14,25 @@ module.exports = {
   extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
   plugins: ['@typescript-eslint'],
   rules: {
-    '@typescript-eslint/no-explicit-any': ['off'],
-    'no-undef': 2,
-    'linebreak-style': ['error', 'unix'],
     indent: ['error', 2],
     quotes: ['error', 'single'],
-    semi: ['error', 'always'],
-    'getter-return': 2,
+    semi: 'error',
+    'linebreak-style': ['error', 'unix'],
+    'no-undef': 'error',
+    'getter-return': 'error',
+    '@typescript-eslint/no-explicit-any': 'off',
   },
+  overrides: [
+    {
+      files: ['test/**/*'],
+      plugins: ['jest'],
+      extends: ['plugin:jest/recommended'],
+      rules: {
+        'jest/prefer-expect-assertions': 'off',
+        'jest/no-done-callback': 'off',
+        'jest/no-disabled-tests': 'off',
+        'jest/no-focused-tests': 'off',
+      },
+    },
+  ],
 };
