@@ -8,6 +8,11 @@
   "author": "Ethan.Zhong",
   "license": "MIT",
   "types": "./types/index.d.ts",
+  "keywords": [
+    "Emitter",
+    "Event",
+    "Signal"
+  ],
   "files": [
     "lib",
     "types"
