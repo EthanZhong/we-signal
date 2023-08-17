@@ -1,6 +1,5 @@
 import type { Emitter } from './Emitter';
-import type { SignalFeature } from './Signal';
-import { Signal } from './Signal';
+import { type SignalFeature, Signal } from './Signal';
 /** 侦听器处理函数类型 */
 export declare type ListenerHandler<T = any> = (signal: Signal<T>) => unknown;
 /** 创建侦听器symbol值 */

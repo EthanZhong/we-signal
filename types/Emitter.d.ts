@@ -1,5 +1,5 @@
-import type { ListenerHandler } from './Listener';
-import type { SignalFeature } from './Signal';
+import { type ListenerHandler } from './Listener';
+import { type SignalFeature } from './Signal';
 /** 发射器类 */
 export declare class Emitter {
     /** 父级发射器 */
@@ -7,7 +7,7 @@ export declare class Emitter {
     /** 子级发射器 */
     private _children;
     /** 侦听器集合 */
-    private listeners;
+    private _listeners;
     /** 获取侦听器总数 */
     get totalListener(): number;
     /** 获取父级发射器 */
@@ -87,7 +87,7 @@ export declare class Emitter {
      * @param data 信号数据
      * @param feature 信号特性
      */
-    emit<T>(type: string, data: T, feature?: SignalFeature): void;
+    emit<T>(type: string, data?: T | null, feature?: SignalFeature): void;
     /**
      * 销毁自身
      */
