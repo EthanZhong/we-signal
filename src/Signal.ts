@@ -57,6 +57,6 @@ export class Signal<T> {
     origin: Emitter,
     feature: SignalFeature = Signal.Features.exact
   ) {
-    return new Signal<U>(SignalSymbol, type, data, origin, feature);
+    return new Signal(SignalSymbol, type, data, origin, feature);
   }
 }

@@ -7,10 +7,10 @@ export class Emitter {
   /** 子级发射器 */
   private _children: Emitter[] = [];
   /** 侦听器集合 */
-  private listeners: Record<string, Listener[]> = {};
+  private _listeners: Record<string, Listener[]> = {};
   /** 获取侦听器总数 */
   get totalListener() {
-    return Object.values(this.listeners).reduce(
+    return Object.values(this._listeners).reduce(
       (pre, current) => pre + current.length,
       0
     );
@@ -23,7 +23,6 @@ export class Emitter {
   set parent(newParent: Emitter | null) {
     const oldParent = this._parent;
     if (newParent !== oldParent) {
-      this._parent = newParent;
       if (oldParent) oldParent.removeChild(this);
       if (newParent) newParent.addChild(this);
     }
@@ -40,7 +39,7 @@ export class Emitter {
     children.forEach((child) => {
       if (!this.hasChild(child)) {
         this._children.push(child);
-        if (child.parent !== this) child.parent = this;
+        child._parent = this;
       }
     });
   }
@@ -54,7 +53,7 @@ export class Emitter {
       const index = this.getChildIndex(child);
       if (index > -1) {
         this._children.splice(index, 1);
-        if (child.parent === this) child.parent = null;
+        child._parent = null;
       }
     });
   }
@@ -92,8 +91,8 @@ export class Emitter {
   ) {
     if (!type || !handler || count === 0) return false;
     this.removeListener(type, handler, context, catchFeature);
-    this.listeners[type] ??= [];
-    this.listeners[type].push(
+    this._listeners[type] ??= [];
+    this._listeners[type].push(
       Listener.create(type, handler, this, context, count, catchFeature)
     );
     return true;
@@ -144,11 +143,11 @@ export class Emitter {
     catchFeature: SignalFeature = Signal.Features.exact
   ) {
     if (!type) {
-      this.listeners = {};
+      this._listeners = {};
     } else if (!handler) {
-      delete this.listeners[type];
-    } else if (this.listeners[type]) {
-      const listeners = this.listeners[type];
+      delete this._listeners[type];
+    } else if (this._listeners[type]) {
+      const listeners = this._listeners[type];
       let index = listeners.length - 1;
       while (index > -1) {
         const listener = listeners[index];
@@ -160,7 +159,7 @@ export class Emitter {
           listeners.splice(index, 1);
         --index;
       }
-      if (!listeners.length) delete this.listeners[type];
+      if (!listeners.length) delete this._listeners[type];
     }
   }
   /**
@@ -218,8 +217,8 @@ export class Emitter {
    */
   private receive<T>(signal: Signal<T>) {
     const { type } = signal;
-    const listeners = this.listeners[type];
-    if (listeners?.length) {
+    const listeners = this._listeners[type] ?? [];
+    if (listeners.length) {
       const invalids = [] as Listener[];
       listeners.forEach((listener) => {
         listener.handle(signal);
@@ -251,7 +250,7 @@ export class Emitter {
    * @param signal 信号
    */
   private emitDownWard<T>(signal: Signal<T>) {
-    if (this.children.length) {
+    if (this.children.length > 0) {
       this.children.forEach((child) => {
         child.receive(signal);
         child.emitDownWard(signal);

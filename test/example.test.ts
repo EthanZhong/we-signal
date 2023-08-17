@@ -51,15 +51,15 @@ test('eg3', () => {
   );
 });
 test('eg4', () => {
-  const parentHandler1 = jest.fn((signal) => signal.data);
-  const parentHandler2 = jest.fn((signal) => signal.data);
-  const currentHandler1 = jest.fn((signal) => signal.data);
-  const currentHandler2 = jest.fn((signal) => signal.data);
-  const currentHandler3 = jest.fn((signal) => signal.data);
-  const currentHandler4 = jest.fn((signal) => signal.data);
-  const childHandler1 = jest.fn((signal) => signal.data);
-  const childHandler2 = jest.fn((signal) => signal.data);
-  const childHandler3 = jest.fn((signal) => signal.data);
+  const parentHandler1 = jest.fn((signal: Signal<string>) => signal.data);
+  const parentHandler2 = jest.fn((signal: Signal<string>) => signal.data);
+  const currentHandler1 = jest.fn((signal: Signal<string>) => signal.data);
+  const currentHandler2 = jest.fn((signal: Signal<string>) => signal.data);
+  const currentHandler3 = jest.fn((signal: Signal<string>) => signal.data);
+  const currentHandler4 = jest.fn((signal: Signal<string>) => signal.data);
+  const childHandler1 = jest.fn((signal: Signal<string>) => signal.data);
+  const childHandler2 = jest.fn((signal: Signal<string>) => signal.data);
+  const childHandler3 = jest.fn((signal: Signal<string>) => signal.data);
   const parent = new Emitter();
   const current = new Emitter();
   const child_1 = new Emitter();
@@ -80,6 +80,8 @@ test('eg4', () => {
   child_1.on('SignalType', childHandler3, null, -1, Signal.Features.whole);
 
   parent.emit('SignalType', 'parent_exact');
+  parent.emit('SignalType', 'parent_exact');
+  parent.emit('SignalType', 'parent_exact_1');
   parent.emit('SignalType', 'parent_downward', Signal.Features.downward);
   current.emit('SignalType', 'current_exact');
   current.emit('SignalType', 'current_downward', Signal.Features.downward);
@@ -88,8 +90,13 @@ test('eg4', () => {
   child_1.emit('SignalType', 'child_1_exact');
   child_1.emit('SignalType', 'child_1_upward', Signal.Features.upward);
 
+  expect(parentHandler1.mock.results.length).toBe(4);
   expect(parentHandler1.mock.results.map((item) => item.value)).toEqual(
-    expect.arrayContaining(['parent_exact', 'parent_downward'])
+    expect.arrayContaining([
+      'parent_exact',
+      'parent_exact_1',
+      'parent_downward',
+    ])
   );
   expect(parentHandler2.mock.results.map((item) => item.value)).toEqual(
     expect.arrayContaining([
