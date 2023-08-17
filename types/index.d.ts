@@ -1,3 +1,2 @@
-export type { SignalFeature } from './Signal';
+export { type SignalFeature, Signal } from './Signal';
 export { Emitter } from './Emitter';
-export { Signal } from './Signal';

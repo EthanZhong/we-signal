@@ -1,6 +1,5 @@
 import type { Emitter } from './Emitter';
-import type { SignalFeature } from './Signal';
-import { Signal } from './Signal';
+import { type SignalFeature, Signal } from './Signal';
 /** 侦听器处理函数类型 */
 export type ListenerHandler<T = any> = (signal: Signal<T>) => unknown;
 /** 创建侦听器symbol值 */
@@ -52,7 +51,6 @@ export class Listener {
       /** 条件符合处理信号 */
       if (matchExact || canCatchWhole || catchWholeSignal || matchFeature) {
         if (this.count > 0) --this.count;
-        //Reflect.apply(this.handler, this.context, [signal]);
         this.handler.call(this.context, signal);
       }
     }

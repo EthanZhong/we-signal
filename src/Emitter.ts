@@ -1,7 +1,5 @@
-import type { ListenerHandler } from './Listener';
-import type { SignalFeature } from './Signal';
-import { Listener } from './Listener';
-import { Signal } from './Signal';
+import { type ListenerHandler, Listener } from './Listener';
+import { type SignalFeature, Signal } from './Signal';
 /** 发射器类 */
 export class Emitter {
   /** 父级发射器 */
@@ -188,7 +186,7 @@ export class Emitter {
    */
   public emit<T>(
     type: string,
-    data: T,
+    data = null as T | null,
     feature: SignalFeature = Signal.Features.exact
   ) {
     /** 创建本次发射的信号 */

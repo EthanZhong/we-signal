@@ -12,7 +12,7 @@ import type { Emitter } from './Emitter';
  */
 export type SignalFeature = 'exact' | 'upward' | 'downward' | 'whole';
 /** 信号特性常量类型 */
-type SignalFeatureConst<T extends keyof any = SignalFeature> = {
+type SignalFeatureConst<T extends SignalFeature = SignalFeature> = {
   [K in T]: K;
 };
 /** 创建信号symbol值 */
@@ -57,6 +57,6 @@ export class Signal<T> {
     origin: Emitter,
     feature: SignalFeature = Signal.Features.exact
   ) {
-    return new Signal(SignalSymbol, type, data, origin, feature);
+    return new Signal<U>(SignalSymbol, type, data, origin, feature);
   }
 }

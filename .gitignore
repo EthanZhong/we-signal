@@ -13,3 +13,5 @@ node_modules/
 .npm
 # Optional eslint cache
 .eslintcache
+# jest
+coverage
