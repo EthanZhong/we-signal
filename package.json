@@ -1,6 +1,6 @@
 {
   "name": "we-signal",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Event signal emitter",
   "main": "./lib/we-signal.min.js",
   "module": "./lib/we-signal.esm.js",
